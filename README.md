@@ -11,15 +11,15 @@ Black list of passwords - is a txt file (passwords.txt) in run directory
 After run password_strength.py you have to input password, after welcoming phrase.
 
 example:
-'''
+```
 python password_strength.py 
 Input password to check: 
-''' 
+```
 
 output:
-'''
+```
 Strength of your password: 1
-'''
+```
 
 # Project Goals
 
