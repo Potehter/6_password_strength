@@ -3,13 +3,13 @@ import re
 
 def get_entrance_black_list(password):
     try:
-        file = open('passwords.txt', 'r')
+        file_passwords = open('passwords.txt', 'r')
     except IOError as e:
         print('Cannot check password in black list')
         return 0
     else:
-        with file:
-            black_passwords = file.read()
+        with file_passwords:
+            black_passwords = file_passwords.read()
             list_black_passwords = black_passwords.split('\r\n')
             if password in list_black_passwords:
                 return 0
