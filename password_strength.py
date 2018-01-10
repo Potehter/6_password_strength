@@ -11,7 +11,7 @@ def get_passwords_list():
 
 def check_password_in_black_list(password):
     list_black_passwords = get_passwords_list()
-    return password in list_black_passwords
+    return password not in list_black_passwords
 
 
 def get_length_strength(password):
