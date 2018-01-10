@@ -5,27 +5,24 @@ import getpass
 def get_passwords_list():
     with open('passwords.txt', 'r') as file_passwords:
         black_passwords = file_passwords.read()
-        list_black_passwords = black_passwords.split('\r\n')
-        return list_black_passwords
+        list_black_passwords = black_passwords.split('\n')
+    return list_black_passwords
 
 
-def get_strength_from_black_list(password):
+def check_password_in_black_list(password):
     list_black_passwords = get_passwords_list()
-    if list_black_passwords:
-        if password in list_black_passwords:
-            return 0
-        else:
-            return 3
-    else:
-        return 0
+    return password in list_black_passwords
 
 
 def get_length_strength(password):
-    if len(password) > 10:
+    good_length = 10
+    normal_length = 8
+    bad_length = 5
+    if len(password) > good_length:
         return 3
-    elif len(password) > 8:
+    elif len(password) > normal_length:
         return 2
-    elif len(password) > 5:
+    elif len(password) > bad_length:
         return 1
     else:
         return 0
@@ -33,10 +30,9 @@ def get_length_strength(password):
 
 def get_character_diversity(password):
     counter = 0
-    array_cases_to_check = ['[a-z]', '[A-Z]', '\d', '\W']
-    # \d - any digit, \W - any special character (not digit, letter)
-    for case in array_cases_to_check:
-        match = re.search(case, password)
+    array_patterns_to_check = ['[a-z]', '[A-Z]', '\d', '\W']
+    for pattern in array_patterns_to_check:
+        match = re.search(pattern, password)
         if match:
             counter += 1
     return counter
@@ -45,13 +41,13 @@ def get_character_diversity(password):
 def get_password_strength(password):
     strength_lenght = get_length_strength(password)
     strength_diversity = get_character_diversity(password)
-    strength_from_black_list = get_strength_from_black_list(password)
+    strength_from_black_list = check_password_in_black_list(password) * 3
     total_strength = sum((
         strength_lenght,
         strength_diversity,
         strength_from_black_list
     ))
-    return str(total_strength)
+    return total_strength
 
 
 def main():
